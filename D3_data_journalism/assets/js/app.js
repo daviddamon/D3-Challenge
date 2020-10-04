@@ -27,19 +27,19 @@ d3.csv("data.csv").then(function(censusData) {
 
     // Step 1: Parse Data/Cast as numbers
     // ==============================
-    hairData.forEach(function(data) {
-      data.hair_length = +data.hair_length;
-      data.num_hits = +data.num_hits;
+    censusData.forEach(function(data) {
+      data.poverty = +data.poverty;
+      data.obesity = +data.obesity;
     });
 
     // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-      .domain([20, d3.max(hairData, d => d.hair_length)])
+      .domain([20, d3.max(censusData, d => d.poverty)])
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(hairData, d => d.num_hits)])
+      .domain([0, d3.max(censusData, d => d.obesity)])
       .range([height, 0]);
 
     // Step 3: Create axis functions
@@ -59,13 +59,13 @@ d3.csv("data.csv").then(function(censusData) {
     // Step 5: Create Circles
     // ==============================
     var circlesGroup = chartGroup.selectAll("circle")
-    .data(hairData)
+    .data(censusData)
     .enter()
     .append("circle")
-    .attr("cx", d => xLinearScale(d.hair_length))
-    .attr("cy", d => yLinearScale(d.num_hits))
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.obesity))
     .attr("r", "15")
-    .attr("fill", "pink")
+    .attr("fill", "lightblue")
     .attr("opacity", ".5");
 
     // Step 6: Initialize tool tip
@@ -74,7 +74,7 @@ d3.csv("data.csv").then(function(censusData) {
       .attr("class", "tooltip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
+        return (`${d.abbr}<br>Hair length: ${d.poverty}<br>Hits: ${d.obesity}`);
       });
 
     // Step 7: Create tooltip in the chart
@@ -98,12 +98,12 @@ d3.csv("data.csv").then(function(censusData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Number of Billboard 100 Hits");
+      .text("Poverty Rate (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
-      .text("Hair Metal Band Hair Length (inches)");
+      .text("Obesity Rate(%)");
   }).catch(function(error) {
     console.log(error);
   });
