@@ -72,7 +72,10 @@ d3.csv("data.csv").then((censusData) => {
       .attr("r", "15")
       .attr("fill", "blue")
       .attr("opacity", ".5");
-      
+      //.attr("class", function(d){
+         //return "stateCircle " + d.abbr
+      //});
+
       // add state abbr. to circles
       var circleAbbr = chartGroup.selectAll(null)
          .data(censusData)
@@ -84,6 +87,39 @@ d3.csv("data.csv").then((censusData) => {
          .attr("y", d => yLinearScale(d.obesity)+5)
          .text(function(d) {return d.abbr; })
          .attr("class", "stateText"); 
+
+   // circlesGroup.append("text")
+   //    .text(d => d.abbr)
+   //    .attr("dx", d => xLinearScale(d.poverty))
+   //    .attr("dy", d => yLinearScale(d.obesity))
+   //    .attr("class", "stateText");
+
+
+   // // create text in circle
+   // var textGroup = chartGroup.selectAll("text")
+   //    .data(censusData)
+   //    .enter()
+   //    .append("text")
+   //    .attr("dx", d => xLinearScale(d.poverty))
+   //    .attr("dy", d => yLinearScale(d.obesity))
+   //    .attr("font-size", "15")
+   //    .attr("text-anchor", "middle")
+   //    .attr("color", "white")
+   //    .attr("class", function(d){
+   //       return "stateText " + d.abbr;
+   //    });
+
+   
+   
+      // ==from YouTube==
+      // .text(function(d){return d.abbr})
+      // .attr({
+      //    x: function(d){return d.poverty+1},
+      //    y: function(d){return h-d.abbr},
+      // .attr("class", "stateText")
+      // .attr("class", function(d){
+      //    return d.abbr
+
 
    // Step 6: Initialize tool tip
    // ==============================
